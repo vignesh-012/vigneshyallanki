@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yallanki Vignesh | MERN Stack Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIABLES (Clean Student Theme) --- */
+        :root {
+            --bg-color: #f8f9fa; /* Light Grey Background */
+            --card-bg: #ffffff;  /* White Cards */
+            --primary: #0056b3;  /* Academic Blue */
+            --secondary: #00a8ff; /* Light Blue Accent */
+            --accent-react: #61DBFB; /* React Blue */
+            --accent-node: #3C873A; /* Node Green */
+            --text-main: #333333; 
+            --text-muted: #666666; 
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND SHAPES & STICKERS --- */
+        .shape {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(80px);
+        }
+        .shape-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(97, 219, 251, 0.15); } 
+        .shape-2 { bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: rgba(60, 135, 58, 0.1); } 
+
+        /* New Sticker Styles */
+        .sticker {
+            position: absolute;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+            border: 2px solid #fff;
+        }
+
+        .sticker i { display: block; }
+        
+        /* Sticker Positions */
+        .sticker-1 { top: 15%; left: 10%; color: #e67e22; transform: rotate(-15deg); } /* Book */
+        .sticker-2 { top: 20%; right: 10%; color: #f1c40f; transform: rotate(15deg); animation-delay: 1s; } /* Bulb */
+        .sticker-3 { bottom: 20%; left: 5%; color: #34495e; transform: rotate(10deg); font-size: 2rem; animation-delay: 2s; } /* Grad Cap */
+        .sticker-4 { top: 60%; right: 8%; color: #7f8c8d; transform: rotate(-20deg); animation-delay: 1.5s; } /* Coffee */
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+            50% { transform: translateY(-20px) rotate(var(--r, 0deg)); }
+            100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background: var(--primary);
+            margin-top: 5px;
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .hero-badge {
+            background: #e3f2fd;
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            min-height: 1.5em;
+        }
+        
+        .typewriter span {
+            color: var(--primary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #004494;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* --- ABOUT & CARDS --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+        }
+
+        .edu-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 25px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .edu-item h4 { margin-bottom: 5px; color: #222; }
+        .edu-item .school { color: #555; font-size: 0.95rem; }
+        .edu-item .grade { color: var(--primary); font-weight: bold; font-size: 0.9rem; margin-top: 5px; display: block;}
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .skill-item i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .project-header i { font-size: 2rem; }
+
+        .project-body {
+            padding: 25px;
+        }
+
+        .project-body h3 {
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .project-body ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .project-body ul li {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .project-body ul li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            
+            /* Hide stickers on mobile to save space */
+            .sticker { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <div class="sticker sticker-1" style="--r: -15deg;"><i class="fas fa-book-open"></i></div>
+    <div class="sticker sticker-2" style="--r: 15deg;"><i class="fas fa-lightbulb"></i></div>
+    <div class="sticker sticker-3" style="--r: 10deg;"><i class="fas fa-graduation-cap"></i></div>
+    <div class="sticker sticker-4" style="--r: -20deg;"><i class="fas fa-mug-hot"></i></div>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">MY PORTFOLIO</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <img src="https://res.cloudinary.com/dlhfbsqg5/image/upload/v1766644509/image_cxloyy.png" alt="Yallanki Vignesh" class="profile-img">
+            
+            <div style="display: block;">
+                <div class="hero-badge">2027 ECE Graduate</div>
+            </div>
+            
+            <h1>Yallanki Vignesh</h1>
+            <div class="typewriter" id="typewriter"></div>
+            <p style="max-width: 600px; margin: 0 auto 30px; color: #555;">
+                Transitioning from Electronics to <strong>Full Stack Web Development</strong>. 
+                Passionate about building scalable web applications using the <strong>MERN Stack</strong>.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">My Work</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="card">
+                    <h2>About Me</h2>
+                    <p style="margin-bottom: 20px;">
+                        I am an ECE student at KLH University with a strong academic record (CGPA 9.23). While my background is in electronics, I have discovered a deep passion for coding and web technologies.
+                    </p>
+                    <p style="color: #555; margin-bottom: 20px;">
+                        I am currently mastering the <strong>MERN Stack (MongoDB, Express, React, Node.js)</strong> to become a Full Stack Developer. I am a self-motivator who loves building projects and documenting my learning journey on Hashnode.
+                    </p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <span class="skill-item" style="padding: 5px 15px; font-size:0.8rem; font-weight:bold; background: #e3f2fd;">Quick Learner</span>
+                        <span class="skill-item" style="padding: 5px 15px; font-size:0.8rem; font-weight:bold; background: #e3f2fd;">Problem Solving</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Education</h2>
+                    <div class="edu-item">
+                        <h4>B.Tech – ECE</h4>
+                        <span class="school">KLH Deemed to be University (2023 - Present)</span>
+                        <span class="grade">CGPA: 9.23</span>
+                    </div>
+                    <div class="edu-item">
+                        <h4>Intermediate - MPC</h4>
+                        <span class="school">Krishnaveni Arts & Science Junior College</span>
+                        <span class="grade">CGPA: 9.75</span>
+                    </div>
+                    <div class="edu-item">
+                        <h4>SSC (10th)</h4>
+                        <span class="school">Good News High School</span>
+                        <span class="grade">GPA: 10.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" style="background: #fff;">
+        <div class="container">
+            <h2 style="text-align: center; width: 100%;">MERN & Technical Skills</h2>
+            <div class="skills-grid" style="margin-top: 30px;">
+                <div class="skill-item">
+                    <i class="fas fa-sitemap" style="color: #9b59b6;"></i>
+                    <h4>DSA</h4>
+                    <span style="font-size: 0.8rem; color: #666;">Data Structures & Algo</span>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-react" style="color: #61DBFB;"></i>
+                    <h4>React.js</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-node-js" style="color: #3C873A;"></i>
+                    <h4>Node.js</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database" style="color: #4DB33D;"></i>
+                    <h4>MongoDB</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js" style="color: #F7DF1E;"></i>
+                    <h4>JavaScript</h4>
+                </div>
+                
+                <div class="skill-item">
+                    <i class="fab fa-html5" style="color: #E34F26;"></i>
+                    <h4>HTML5</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt" style="color: #1572B6;"></i>
+                    <h4>CSS3</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-git-alt" style="color: #F05032;"></i>
+                    <h4>Git & GitHub</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-code" style="color: #333;"></i>
+                    <h4>C / Basic Java</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="project-grid">
+                
+                <div class="project-card" style="border: 2px solid var(--primary);">
+                    <div class="project-header" style="background: var(--primary);">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="project-body">
+                        <h3>MERN Stack Projects</h3>
+                        <p style="font-size: 0.85rem; color: #777; margin-bottom: 10px;">Currently Learning & Building</p>
+                        <ul>
+                            <li>Developing Full Stack Web Applications.</li>
+                            <li>Building RESTful APIs with Node.js & Express.</li>
+                            <li>Creating interactive Frontends with React.js.</li>
+                            <li><strong>Goal:</strong> Building a complete portfolio website and E-commerce clone.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="project-card" style="border: 2px solid var(--secondary);">
+    <div class="project-header" style="background: var(--secondary);">
+        <i class="fas fa-clapperboard"></i>
+    </div>
+    <div class="project-body">
+        <h3>CineFinder</h3>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 10px;">API-Driven Web App</p>
+        <ul>
+            <li>Interactive movie search engine using the <strong>OMDB API</strong>.</li>
+            <li>Implemented <strong>Asynchronous JavaScript (Async/Await)</strong> for real-time data fetching.</li>
+            <li>Features a glassmorphic desktop UI with dynamic poster rendering and error handling.</li>
+            <li><strong>Key Tech:</strong> JavaScript (ES6+), Fetch API, CSS Grid/Flexbox.</li>
+        </ul>
+        <div style="margin-top: 15px;">
+            <span style="padding: 3px 8px; background: #e3f2fd; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: var(--primary);">REST API</span>
+            <span style="padding: 3px 8px; background: #e3f2fd; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: var(--primary);">JSON</span>
+        </div>
+    </div>
+</div>
+                
+                <div class="project-card">
+    <div class="project-header" style="background: #dc2626;">
+        <i class="fas fa-envelope-open-text"></i>
+    </div>
+    <div class="project-body">
+        <h3>Vehicle Alert System</h3>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 10px;">IoT | JavaScript & SMTP</p>
+        <ul>
+            <li>One-button messaging system for immediate emergency reporting.</li>
+            <li>Direct email integration to send SOS alerts to pre-defined contacts.</li>
+            <li>Automated data logging of vehicle status and incident timestamps.</li>
+            <li>Cloud-based messaging architecture for high reliability.</li>
+        </ul>
+    </div>
+</div>
+
+                <div class="project-card">
+                    <div class="project-header" style="background: #555;">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="project-body">
+                        <h3>Smart Home Automation</h3>
+                        <p style="font-size: 0.85rem; color: #777; margin-bottom: 10px;">IoT | ESP32</p>
+                        <ul>
+                            <li>IoT system to control appliances via Wi-Fi.</li>
+                            <li>Mobile App integration for fan & light control.</li>
+                            <li>Showcased ability to integrate hardware with software.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header" style="background: #555;">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="project-body">
+                        <h3>Anti-Sleep Driver Alert</h3>
+                        <p style="font-size: 0.85rem; color: #777; margin-bottom: 10px;">Hardware | Arduino</p>
+                        <ul>
+                            <li>Driver safety system using eye-blink sensors.</li>
+                            <li>Arduino integration to monitor drowsiness.</li>
+                            <li>Buzzer/LED alert mechanism with 90% accuracy.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" style="background: #fff; text-align: center;">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div style="display:flex; justify-content:center; gap:15px; margin-top: 20px; flex-wrap:wrap;">
+                
+                <div class="skill-item" style="padding:15px 25px;">
+                    <i class="fas fa-robot" style="color: #333; font-size: 1.5rem; margin-bottom:5px;"></i>
+                    <div style="font-weight:600;">Automation Anywhere Certified <br>Advanced RPA Professional</div>
+                </div>
+
+                <div class="skill-item" style="padding:15px 25px;">
+                    <i class="fas fa-database" style="color: #4DB33D; font-size: 1.5rem; margin-bottom:5px;"></i>
+                    <div style="font-weight:600;">MongoDB Associate <br>Developer (Node.js)</div>
+                </div>
+
+                <div class="skill-item" style="padding:15px 25px;">
+                    <i class="fab fa-github" style="color: #333; font-size: 1.5rem; margin-bottom:5px;"></i>
+                    <div style="font-weight:600;">GitHub Foundations <br>Certification</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p style="margin-bottom: 30px; opacity: 0.8;">
+                Seeking opportunities to apply my MERN Stack skills in a challenging environment.
+            </p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/yallanki-vignesh-b05010324/"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/vignesh-012"><i class="fab fa-github"></i></a>
+            </div>
+            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.6;">© 2027 Yallanki Vignesh.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Typing Effect (Updated for MERN)
+        const textElement = document.getElementById('typewriter');
+        const phrases = [' Enthusiastic software engineer'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, 2000); 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500); 
+            } else {
+                setTimeout(type, isDeleting ? 100 : 200);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // 2. Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>
