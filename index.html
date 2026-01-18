@@ -6,14 +6,14 @@
     <title>Yallanki Vignesh | MERN Stack Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- VARIABLES (Clean Student Theme) --- */
+        
         :root {
-            --bg-color: #f8f9fa; /* Light Grey Background */
-            --card-bg: #ffffff;  /* White Cards */
-            --primary: #0056b3;  /* Academic Blue */
-            --secondary: #00a8ff; /* Light Blue Accent */
-            --accent-react: #61DBFB; /* React Blue */
-            --accent-node: #3C873A; /* Node Green */
+            --bg-color: #f8f9fa; 
+            --card-bg: #ffffff;  
+            --primary: #0056b3;  
+            --secondary: #00a8ff; 
+            --accent-react: #61DBFB; 
+            --accent-node: #3C873A; 
             --text-main: #333333; 
             --text-muted: #666666; 
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -36,7 +36,6 @@
             position: relative;
         }
 
-        /* --- BACKGROUND SHAPES & STICKERS --- */
         .shape {
             position: fixed;
             border-radius: 50%;
@@ -47,7 +46,6 @@
         .shape-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(97, 219, 251, 0.15); } 
         .shape-2 { bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: rgba(60, 135, 58, 0.1); } 
 
-        /* New Sticker Styles */
         .sticker {
             position: absolute;
             background: white;
@@ -62,7 +60,6 @@
 
         .sticker i { display: block; }
         
-        /* Sticker Positions */
         .sticker-1 { top: 15%; left: 10%; color: #e67e22; transform: rotate(-15deg); } /* Book */
         .sticker-2 { top: 20%; right: 10%; color: #f1c40f; transform: rotate(15deg); animation-delay: 1s; } /* Bulb */
         .sticker-3 { bottom: 20%; left: 5%; color: #34495e; transform: rotate(10deg); font-size: 2rem; animation-delay: 2s; } /* Grad Cap */
@@ -74,7 +71,6 @@
             100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
         }
 
-        /* --- LAYOUT --- */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -117,7 +113,6 @@
             transform: translateY(0);
         }
 
-        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             width: 100%;
@@ -158,7 +153,6 @@
             color: var(--primary);
         }
 
-        /* --- HERO SECTION --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -244,7 +238,7 @@
             color: #fff;
         }
 
-        /* --- ABOUT & CARDS --- */
+    
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -270,7 +264,7 @@
         .edu-item .school { color: #555; font-size: 0.95rem; }
         .edu-item .grade { color: var(--primary); font-weight: bold; font-size: 0.9rem; margin-top: 5px; display: block;}
 
-        /* --- SKILLS --- */
+        
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -299,7 +293,7 @@
             display: block;
         }
 
-        /* --- PROJECTS --- */
+        
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -359,7 +353,6 @@
             font-weight: bold;
         }
 
-        /* --- FOOTER --- */
         footer {
             background: #2c3e50;
             color: white;
@@ -380,13 +373,13 @@
             transform: scale(1.1);
         }
 
-        /* Mobile */
+       
         @media (max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
             .nav-links { display: none; }
             
-            /* Hide stickers on mobile to save space */
+            
             .sticker { display: none; }
         }
     </style>
@@ -648,38 +641,7 @@
     </footer>
 
     <script>
-        // 1. Typing Effect (Updated for MERN)
-        const textElement = document.getElementById('typewriter');
-        const phrases = [' Enthusiastic software engineer'];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                setTimeout(type, 2000); 
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(type, 500); 
-            } else {
-                setTimeout(type, isDeleting ? 100 : 200);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', type);
-
-        // 2. Scroll Animation
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -695,3 +657,4 @@
 </body>
 
 </html>
+
